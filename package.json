@@ -1,0 +1,28 @@
+{
+  "name": "anonesultra",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "bin": {
+    "anonesultra": "./server.js"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*",
+      "data/**/*",
+      "pas.txt"
+    ],
+    "targets": [
+      "node16-win-x64"
+    ]
+  },
+  "dependencies": {
+    "express": "^5.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^32.0.2"
+  }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация и Вход</title>
+    <link rel="stylesheet" href="regis.css">
+    <script defer src="regis.js"></script>
+</head>
+<body>
+    <div id="loginForm">
+        <h2 id="formTitle">Регистрация</h2>
+
+        <!-- Логин -->
+        <input type="text" id="username" placeholder="Введите имя пользователя" required>
+        <span id="usernameError" class="error-message"></span>
+
+        <!-- Контейнер для пароля и кнопки показа пароля -->
+        <div id="passwordContainer">
+            <input type="password" id="password" placeholder="Введите пароль" required>
+            <span id="passwordStateIcon" class="unchecked">❌</span>
+        </div>
+        <span id="passwordError" class="error-message"></span>
+
+        <!-- Кнопка генерации пароля -->
+        <button id="generatePassword">Сгенерировать пароль</button>
+
+        <!-- Кнопка для отправки формы -->
+        <button id="submitForm" class="primary">Зарегистрироваться</button>
+
+        <!-- Ссылка для переключения формы -->
+        <p id="toggleForm">Уже есть аккаунт? <a href="#" id="loginLink">Войти</a></p>
+    </div>
+
+    <!-- Кастомные уведомления -->
+    <div id="customNotification" class="notification hidden"></div>
+
+</body>
+</html>

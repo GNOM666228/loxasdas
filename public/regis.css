@@ -1,0 +1,225 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Анимации появления */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стиль формы регистрации/логина */
+#loginForm {
+    background-color: #1f1f1f;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 400px;
+    animation: fadeInDown 0.7s ease forwards;
+}
+
+/* Заголовок */
+h2 {
+    color: #00e676;
+    font-size: 24px;
+    margin-bottom: 20px;
+    animation: fadeInDown 0.9s ease forwards;
+}
+
+/* Поля ввода */
+input {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #00e676;
+    outline: none;
+    width: calc(100% - 24px);
+    background-color: #333;
+    color: #fff;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Эффект при фокусе на поле ввода */
+input:focus {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+}
+
+/* Показать/скрыть пароль */
+#passwordContainer {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#password {
+    padding-right: 40px;
+}
+
+#togglePassword {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #00e676;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#togglePassword:hover {
+    transform: scale(1.2);
+}
+
+/* Иконки для показа/скрытия пароля */
+#passwordStateIcon {
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#passwordStateIcon.checked {
+    color: #00e676;
+    content: "✅";
+}
+
+#passwordStateIcon.unchecked {
+    color: #ff1744;
+    content: "❌";
+}
+
+/* Кнопки */
+button {
+    cursor: pointer;
+    background-color: transparent;
+    color: #fff;
+    font-size: 16px;
+    border: 2px solid #00e676;
+    border-radius: 8px;
+    padding: 12px;
+    width: calc(100% - 24px);
+    margin-top: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Кнопка для входа/регистрации */
+button.primary {
+    background-color: #00e676;
+    color: #1f1f1f;
+    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.5);
+}
+
+button.primary:hover {
+    background-color: #00c864;
+    box-shadow: 0 8px 20px rgba(0, 230, 118, 0.7);
+}
+
+button.primary:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 10px rgba(0, 230, 118, 0.6);
+}
+
+/* Стиль кнопки переключения формы (вход/регистрация) */
+#toggleForm {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #00e676;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#toggleForm:hover {
+    color: #00c864;
+}
+
+/* Анимации на кнопки */
+button:hover {
+    background-color: #00e676;
+    color: #1f1f1f;
+    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 10px rgba(0, 230, 118, 0.6);
+}
+
+/* Кнопка генерации пароля */
+#generatePassword {
+    margin-bottom: 15px;
+    background-color: #00e676;
+    color: #1f1f1f;
+    box-shadow: 0 4px 10px rgba(0, 230, 118, 0.2);
+}
+
+#generatePassword:hover {
+    background-color: #00c864;
+    box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+}
+
+/* Эффект всплывающей тени для формы */
+#loginForm:hover {
+    box-shadow: 0 8px 30px rgba(0, 230, 118, 0.5);
+}
+/* Стиль для кастомных уведомлений */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000; /* Поверх других элементов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification.success {
+    background-color: #28a745; /* Зеленый цвет для успешных действий */
+}
+
+.notification.error {
+    background-color: #dc3545; /* Красный цвет для ошибок */
+}
+
+.notification.info {
+    background-color: #007bff; /* Синий цвет для информационных сообщений */
+}
+

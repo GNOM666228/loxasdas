@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чат</title>
+    <link rel="stylesheet" href="chat.css">
+    <script defer src="chat.js"></script>
+</head>
+<body>
+    <div id="chat">
+        <!-- Значок профиля -->
+        <div id="profileSection">
+            <button id="profileButton">👤</button>
+            <!-- Меню профиля -->
+            <div id="profileMenu" class="menu-hidden">
+                <ul>
+                    <li id="changeAvatar">Изменить аватар</li>
+                    <li id="changePassword">Сменить пароль</li>
+                    <li id="notificationSettings">Настройки уведомлений</li>
+                    <li id="themeSettings">Тема чата</li>
+                    <li id="logout">Выйти</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Левое меню с поиском друзей -->
+        <div id="friendList">
+            <h3 id="friendTitle">Найти друзей</h3>
+            <input type="text" id="friendSearch" placeholder="Введите имя друга...">
+            <div id="friendSuggestions"></div> <!-- Список предложений для поиска друзей -->
+            <button id="searchFriendButton">Найти друга</button>
+
+            <h3>Друзья</h3>
+            <div id="friendsContainer">
+                <!-- Список друзей будет динамически добавляться здесь через JS -->
+            </div>
+        </div>
+
+        <!-- Область чата -->
+        <div id="chatArea">
+            <div id="messages">
+                <div id="welcomeMessage">Выберите друга для начала чата</div>
+            </div>
+            
+            <!-- Ввод сообщения -->
+            <div id="inputArea" class="hidden">
+                <input type="text" id="messageInput" placeholder="Введите сообщение..." disabled>
+                <button class="icon-button" id="sendMessage">➡️</button>
+                <button class="icon-button" id="sendFile">📁</button>
+                <button class="icon-button" id="clearChat">🗑️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Логика работы с профилем
+        document.addEventListener("DOMContentLoaded", () => {
+            const profileButton = document.getElementById("profileButton");
+            const profileMenu = document.getElementById("profileMenu");
+
+            // Логика открытия/закрытия меню профиля
+            profileButton.addEventListener("click", () => {
+                profileMenu.classList.toggle("menu-hidden"); // Переключаем класс hidden для показа/скрытия меню
+            });
+        });
+
+        // Подключение к WebSocket для реального времени
+        document.addEventListener("DOMContentLoaded", () => {
+            const socket = new WebSocket(`ws://${window.location.host}`);
+
+            // Обработка отправки сообщений
+            document.getElementById("sendMessage").addEventListener("click", () => {
+                const messageInput = document.getElementById("messageInput");
+                const message = messageInput.value.trim();
+                
+                if (message !== "") {
+                    socket.send(JSON.stringify({ text: message, sender: 'me' }));
+                    messageInput.value = ""; // Очищаем поле ввода
+                }
+            });
+
+            // Обработка получения сообщений
+            socket.addEventListener("message", (event) => {
+                const messageData = JSON.parse(event.data);
+                displayMessage(messageData.text, messageData.sender === 'me');
+            });
+
+            // Функция отображения сообщений в чате
+            function displayMessage(text, isMine) {
+                const messagesDiv = document.getElementById("messages");
+                const messageElement = document.createElement("div");
+                messageElement.classList.add("message", isMine ? "my-message" : "other-message");
+                messageElement.textContent = text;
+                messagesDiv.appendChild(messageElement);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Прокручиваем к последнему сообщению
+            }
+        });
+    </script>
+</body>
+</html>
